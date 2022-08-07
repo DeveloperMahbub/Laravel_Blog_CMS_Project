@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Author\AuthorDashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,13 +31,14 @@ Route::middleware([
 });
 
 //For Admin
-Route::group(['as'=>'admin.','prefix' => 'admin', 'namespace' =>'Admin','middleware' => ['auth','admin']],function(){
+Route::group(['as'=>'admin.','prefix' => 'admin','middleware' => ['auth','admin']],function(){
 
     Route::get('/dashboard',[AdminDashboardController::class,'index'])->name('dashboard');
 
+    Route::resource('tag', TagController::class);
 });
 
 //For Author
-Route::group(['as'=>'author.','prefix' => 'author', 'namespace' =>'Author','middleware' => ['auth','author']],function(){
+Route::group(['as'=>'author.','prefix' => 'author','middleware' => ['auth','author']],function(){
     Route::get('/dashboard',[AuthorDashboardController::class,'index'])->name('dashboard');
 });

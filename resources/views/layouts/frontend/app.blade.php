@@ -20,6 +20,9 @@
 
         <link href="{{ asset('assets/frontend/css/ionicons.css') }}" rel="stylesheet">
 
+        {{-- Toster css --}}
+        <link rel="stylesheet" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+
 
         
         <!-- Scripts -->
@@ -45,7 +48,8 @@
 	
 
 	<script src="{{ asset('assets/frontend/js/scripts.js') }}"></script>
-
+    <script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+    {!! Toastr::message() !!}
     @stack('js')
     </body>
 </html>
