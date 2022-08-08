@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Author\AuthorDashboardController;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +37,7 @@ Route::group(['as'=>'admin.','prefix' => 'admin','middleware' => ['auth','admin'
     Route::get('/dashboard',[AdminDashboardController::class,'index'])->name('dashboard');
 
     Route::resource('tag', TagController::class);
+    Route::resource('category', CategoryController::class);
 });
 
 //For Author
