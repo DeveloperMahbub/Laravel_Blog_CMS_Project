@@ -41,6 +41,9 @@ Route::group(['as'=>'admin.','prefix' => 'admin','middleware' => ['auth','admin'
     Route::resource('tag', TagController::class);
     Route::resource('category', CategoryController::class);
     Route::resource('post', PostController::class);
+
+    Route::get('/pending/post',[PostController::class,'pending'])->name('post.pending');
+    Route::put('/post/{id}/approve',[PostController::class,'approve'])->name('post.approve');
 });
 
 //For Author

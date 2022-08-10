@@ -87,7 +87,8 @@
     <script src="{{ asset('assets/backend/plugins/bootstrap-select/js/bootstrap-select.js') }}"></script>
     <!-- TinyMCE -->
     <script src="{{ asset('assets/backend/plugins/tinymce/tinymce.js') }}"></script>
-    <script src="https://unpkg.com/sweetalert2@7.19.1/dist/sweetalert2.all.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
         $(function () {
             //TinyMCE
@@ -109,7 +110,7 @@
             tinyMCE.baseURL = '{{ asset('assets/backend/plugins/tinymce') }}';
         });
         function approvePost(id) {
-            swal({
+            Swal.fire({
                 title: 'Are you sure?',
                 text: "You went to approve this post ",
                 type: 'warning',
@@ -130,7 +131,7 @@
                     // Read more about handling dismissals
                     result.dismiss === swal.DismissReason.cancel
                 ) {
-                    swal(
+                    Swal.fire(
                         'Cancelled',
                         'The post remain pending :)',
                         'info'

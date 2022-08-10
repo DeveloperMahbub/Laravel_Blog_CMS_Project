@@ -182,6 +182,36 @@ class PostController extends Controller
         return redirect()->route('admin.post.index');
     }
 
+    public function pending()
+    {
+        $posts = Post::where('is_approved',false)->get();
+        return view('admin.post.pending',compact('posts'));
+    }
+
+
+    public function approve($id)
+    {
+        $post = Post::findOrFail($id);
+        if ($post->is_approved == false)
+        {
+            $post->is_approved = true;
+            $post->save();
+            // $post->user->notify(new AuthorPostApproved($post));
+
+            // $subscribers = Subscriber::all();
+            // foreach ($subscribers as $subscriber)
+            // {
+            //     Notification::route('mail',$subscriber->email)
+            //         ->notify(new NewPostNotify($post));
+            // }
+
+            Toastr::success('Post Successfully Approved :)','Success');
+        } else {
+            Toastr::info('This Post is already approved','Info');
+        }
+        return redirect()->back();
+    }
+
     /**
      * Remove the specified resource from storage.
      *
