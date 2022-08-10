@@ -75,6 +75,7 @@
                                     <td>{{ $post->created_at }}</td>
                                     <td>{{ $post->updated_at }}</td>
                                     <td>
+                                        <a class="text-center btn btn-info btn-sm" href="{{ route('admin.post.show',$post->id) }}"><i class="material-icons">visibility</i></a>
                                         <a class="text-center btn btn-info btn-sm" href="{{ route('admin.post.edit',$post->id) }}"><i class="material-icons">edit</i></a>
                                         <button class="btn btn-danger waves-effect" type="button" onclick="deletePost({{ $post->id }})">
                                             <i class="material-icons">delete</i>
