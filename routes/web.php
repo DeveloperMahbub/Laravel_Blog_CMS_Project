@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Author\AuthorDashboardController;
+use App\Http\Controllers\Author\AuthorPostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,4 +46,5 @@ Route::group(['as'=>'admin.','prefix' => 'admin','middleware' => ['auth','admin'
 //For Author
 Route::group(['as'=>'author.','prefix' => 'author','middleware' => ['auth','author']],function(){
     Route::get('/dashboard',[AuthorDashboardController::class,'index'])->name('dashboard');
+    Route::resource('post', AuthorPostController::class);
 });

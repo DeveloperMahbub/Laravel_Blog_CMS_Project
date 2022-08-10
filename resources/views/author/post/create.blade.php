@@ -16,7 +16,7 @@
 
 @section('content')
 <div class="container-fluid">
-    <form action="{{ route('admin.post.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('author.post.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
     <!-- Vertical Layout | With Floating Label -->
         <div class="row clearfix">
@@ -85,7 +85,7 @@
                             </div>
                         </div>
 
-                        <a  class="btn btn-danger m-t-15 waves-effect" href="{{ route('admin.post.index') }}">BACK</a>
+                        <a  class="btn btn-danger m-t-15 waves-effect" href="{{ route('author.post.index') }}">BACK</a>
                         <button type="submit" class="btn btn-primary m-t-15 waves-effect">SUBMIT</button>
                         
                     </div>
