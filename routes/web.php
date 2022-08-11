@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminSubscriberController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Author\AuthorDashboardController;
 use App\Http\Controllers\Author\AuthorPostController;
+use App\Http\Controllers\SubscriberController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +35,8 @@ Route::middleware([
     })->name('dashboard');
 });
 
+Route::post('subscriber',[SubscriberController::class,'store'])->name('subscriber.store');
+
 //For Admin
 Route::group(['as'=>'admin.','prefix' => 'admin','middleware' => ['auth','admin']],function(){
 
@@ -44,6 +48,9 @@ Route::group(['as'=>'admin.','prefix' => 'admin','middleware' => ['auth','admin'
 
     Route::get('/pending/post',[PostController::class,'pending'])->name('post.pending');
     Route::put('/post/{id}/approve',[PostController::class,'approve'])->name('post.approve');
+    //Subscriber Route
+    Route::get('/subscriber',[AdminSubscriberController::class,'index'])->name('subscriber.index');
+    Route::delete('/subscriber/{id}',[AdminSubscriberController::class,'destroy'])->name('subscriber.destroy');
 });
 
 //For Author

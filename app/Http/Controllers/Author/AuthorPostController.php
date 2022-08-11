@@ -105,7 +105,15 @@ class AuthorPostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('author.post.show',compact('post'));
+        if($post->user_id != Auth::id())
+        {
+            Toastr::error('You are not auhorized to access this Post','Error');
+        return redirect()->back();
+        }else{
+
+            return view('author.post.show',compact('post'));
+        }
+        
     }
 
     /**
@@ -116,9 +124,15 @@ class AuthorPostController extends Controller
      */
     public function edit(Post $post)
     {
-        $categories = Category::all();
-        $tags = Tag::all();
-        return view('author.post.edit',compact('post','categories','tags'));
+        if($post->user_id != Auth::id())
+        {
+            Toastr::error('You are not auhorized to access this Post','Error');
+        return redirect()->back();
+        }else{
+            $categories = Category::all();
+            $tags = Tag::all();
+            return view('author.post.edit',compact('post','categories','tags'));
+        }
     }
 
     /**
@@ -137,49 +151,55 @@ class AuthorPostController extends Controller
             'tags' => 'required',
             'body' => 'required',
         ]);
-        $image = $request->file('image');
-        $slug = Str::slug($request->title);
-        if(isset($image))
+        if($post->user_id != Auth::id())
         {
-//            make unipue name for image
-            $currentDate = Carbon::now()->toDateString();
-            $imageName  = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
-
-            if(!Storage::disk('public')->exists('post'))
+            Toastr::error('You are not auhorized to access this Post','Error');
+             return redirect()->back();
+        }else{
+            $image = $request->file('image');
+            $slug = Str::slug($request->title);
+            if(isset($image))
             {
-                Storage::disk('public')->makeDirectory('post');
+            //            make unipue name for image
+                $currentDate = Carbon::now()->toDateString();
+                $imageName  = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
+
+                if(!Storage::disk('public')->exists('post'))
+                {
+                    Storage::disk('public')->makeDirectory('post');
+                }
+                // delete old post image
+                if(Storage::disk('public')->exists('post/'.$post->image))
+                {
+                    Storage::disk('public')->delete('post/'.$post->image);
+                }
+                $postImage = Image::make($image)->resize(1600,1066)->save($imageName);
+                Storage::disk('public')->put('post/'.$imageName,$postImage);
+
+            } else {
+                $imageName = $post->image;
             }
-//            delete old post image
-            if(Storage::disk('public')->exists('post/'.$post->image))
+
+            $post->user_id = Auth::id();
+            $post->title = $request->title;
+            $post->slug = $slug;
+            $post->image = $imageName;
+            $post->body = $request->body;
+            if(isset($request->status))
             {
-                Storage::disk('public')->delete('post/'.$post->image);
+                $post->status = true;
+            }else {
+                $post->status = false;
             }
-            $postImage = Image::make($image)->resize(1600,1066)->save($imageName);
-            Storage::disk('public')->put('post/'.$imageName,$postImage);
+            $post->is_approved = false;
+            $post->save();
 
-        } else {
-            $imageName = $post->image;
+            $post->categories()->sync($request->categories);
+            $post->tags()->sync($request->tags);
+
+            Toastr::success('Post Successfully Updated :)','Success');
+            return redirect()->route('author.post.index');
         }
-
-        $post->user_id = Auth::id();
-        $post->title = $request->title;
-        $post->slug = $slug;
-        $post->image = $imageName;
-        $post->body = $request->body;
-        if(isset($request->status))
-        {
-            $post->status = true;
-        }else {
-            $post->status = false;
-        }
-        $post->is_approved = false;
-        $post->save();
-
-        $post->categories()->sync($request->categories);
-        $post->tags()->sync($request->tags);
-
-        Toastr::success('Post Successfully Updated :)','Success');
-        return redirect()->route('author.post.index');
     }
 
     /**
@@ -190,14 +210,20 @@ class AuthorPostController extends Controller
      */
     public function destroy(Post $post)
     {
-        if (Storage::disk('public')->exists('post/'.$post->image))
+        if($post->user_id != Auth::id())
         {
-            Storage::disk('public')->delete('post/'.$post->image);
+            Toastr::error('You are not auhorized to access this Post','Error');
+             return redirect()->back();
+        }else{
+            if (Storage::disk('public')->exists('post/'.$post->image))
+            {
+                Storage::disk('public')->delete('post/'.$post->image);
+            }
+            $post->categories()->detach();
+            $post->tags()->detach();
+            $post->delete();
+            Toastr::success('Post Successfully Deleted :)','Success');
+            return redirect()->back();
         }
-        $post->categories()->detach();
-        $post->tags()->detach();
-        $post->delete();
-        Toastr::success('Post Successfully Deleted :)','Success');
-        return redirect()->back();
     }
 }
