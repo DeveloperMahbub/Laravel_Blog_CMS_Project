@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Tag;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Subscriber;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -13,6 +14,8 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
+use App\Notifications\AuthorPostApproved;
+use Illuminate\Support\Facades\Notification;
 
 class PostController extends Controller
 {
@@ -196,7 +199,7 @@ class PostController extends Controller
         {
             $post->is_approved = true;
             $post->save();
-            // $post->user->notify(new AuthorPostApproved($post));
+            $post->user->notify(new AuthorPostApproved($post));
 
             // $subscribers = Subscriber::all();
             // foreach ($subscribers as $subscriber)
