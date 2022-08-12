@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
+use App\Notifications\NewPostNotify;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
@@ -181,6 +182,13 @@ class PostController extends Controller
         $post->categories()->sync($request->categories);
         $post->tags()->sync($request->tags);
 
+        $subscribers = Subscriber::all();
+        foreach ($subscribers as $subscriber)
+        {
+            Notification::route('mail',$subscriber->email)
+                ->notify(new NewPostNotify($post));
+        }
+
         Toastr::success('Post Successfully Updated :)','Success');
         return redirect()->route('admin.post.index');
     }
@@ -201,12 +209,12 @@ class PostController extends Controller
             $post->save();
             $post->user->notify(new AuthorPostApproved($post));
 
-            // $subscribers = Subscriber::all();
-            // foreach ($subscribers as $subscriber)
-            // {
-            //     Notification::route('mail',$subscriber->email)
-            //         ->notify(new NewPostNotify($post));
-            // }
+            $subscribers = Subscriber::all();
+            foreach ($subscribers as $subscriber)
+            {
+                Notification::route('mail',$subscriber->email)
+                    ->notify(new NewPostNotify($post));
+            }
 
             Toastr::success('Post Successfully Approved :)','Success');
         } else {
