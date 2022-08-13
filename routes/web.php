@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminFavoriteController;
 use App\Http\Controllers\Admin\AdminSubscriberController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\SeetingsController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Author\AuthorDashboardController;
+use App\Http\Controllers\Author\AuthorFavoriteController;
 use App\Http\Controllers\Author\AuthorPostController;
 use App\Http\Controllers\Author\AuthorSeetingsController;
 use App\Http\Controllers\FavoriteController;
@@ -64,6 +66,9 @@ Route::group(['as'=>'admin.','prefix' => 'admin','middleware' => ['auth','admin'
     Route::get('/settings',[SeetingsController::class,'index'])->name('settings');
     Route::put('/profileUpdate',[SeetingsController::class,'updateProfile'])->name('profile.update');
     Route::put('/updatePassword',[SeetingsController::class,'updatePassword'])->name('update.password');
+
+    //Favorite Route
+    Route::get('/favorite',[AdminFavoriteController::class,'index'])->name('favorite.index');
 });
 
 //For Author
@@ -77,4 +82,7 @@ Route::group(['as'=>'author.','prefix' => 'author','middleware' => ['auth','auth
     Route::get('/settings',[AuthorSeetingsController::class,'index'])->name('settings');
     Route::put('/profileUpdate',[AuthorSeetingsController::class,'updateProfile'])->name('profile.update');
     Route::put('/updatePassword',[AuthorSeetingsController::class,'updatePassword'])->name('update.password');
+
+    //Favorite Route
+    Route::get('/favorite',[AuthorFavoriteController::class,'index'])->name('favorite.index');
 });
