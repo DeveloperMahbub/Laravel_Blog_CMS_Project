@@ -13,6 +13,7 @@ use App\Http\Controllers\Author\AuthorPostController;
 use App\Http\Controllers\Author\AuthorSeetingsController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostDetailsController;
 use App\Http\Controllers\SubscriberController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // })->name('home');
 Route::get('/',[HomeController::class,'index'])->name('home');
+Route::get('/post/{slug}',[PostDetailsController::class,'details'])->name('post.details');
 
 // Route::middleware([
 //     'auth:sanctum',
