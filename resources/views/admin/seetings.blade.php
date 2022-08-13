@@ -116,8 +116,11 @@
                                 </div>
                             </form>
                         </div>
+
+                        {{-- For Pasword tab --}}
+
                         <div role="tabpanel" class="tab-pane fade" id="change_password_with_icon_title">
-                            <form method="POST" action="" class="form-horizontal">
+                            <form method="POST" action="{{ route('admin.update.password') }}" class="form-horizontal">
                                 @csrf
                                 @method('PUT')
                                 <div class="row clearfix">

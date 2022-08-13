@@ -58,9 +58,12 @@ Route::group(['as'=>'admin.','prefix' => 'admin','middleware' => ['auth','admin'
     //Seetings Route
     Route::get('/settings',[SeetingsController::class,'index'])->name('settings');
     Route::put('/profileUpdate',[SeetingsController::class,'updateProfile'])->name('profile.update');
+    Route::put('/updatePassword',[SeetingsController::class,'updatePassword'])->name('update.password');
 });
 
 //For Author
+
+
 Route::group(['as'=>'author.','prefix' => 'author','middleware' => ['auth','author']],function(){
     Route::get('/dashboard',[AuthorDashboardController::class,'index'])->name('dashboard');
     Route::resource('post', AuthorPostController::class);
