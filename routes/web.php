@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\SeetingsController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Author\AuthorDashboardController;
 use App\Http\Controllers\Author\AuthorPostController;
+use App\Http\Controllers\Author\AuthorSeetingsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SubscriberController;
 use Illuminate\Support\Facades\Route;
@@ -67,4 +68,9 @@ Route::group(['as'=>'admin.','prefix' => 'admin','middleware' => ['auth','admin'
 Route::group(['as'=>'author.','prefix' => 'author','middleware' => ['auth','author']],function(){
     Route::get('/dashboard',[AuthorDashboardController::class,'index'])->name('dashboard');
     Route::resource('post', AuthorPostController::class);
+
+    //Seetings Route
+    Route::get('/settings',[AuthorSeetingsController::class,'index'])->name('settings');
+    Route::put('/profileUpdate',[AuthorSeetingsController::class,'updateProfile'])->name('profile.update');
+    Route::put('/updatePassword',[AuthorSeetingsController::class,'updatePassword'])->name('update.password');
 });
