@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminSubscriberController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\SeetingsController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Author\AuthorDashboardController;
 use App\Http\Controllers\Author\AuthorPostController;
@@ -27,15 +28,15 @@ use Illuminate\Support\Facades\Route;
 // })->name('home');
 Route::get('/',[HomeController::class,'index'])->name('home');
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
+// Route::middleware([
+//     'auth:sanctum',
+//     config('jetstream.auth_session'),
+//     'verified'
+// ])->group(function () {
+//     Route::get('/dashboard', function () {
+//         return view('dashboard');
+//     })->name('dashboard');
+// });
 
 Route::post('subscriber',[SubscriberController::class,'store'])->name('subscriber.store');
 
@@ -53,6 +54,10 @@ Route::group(['as'=>'admin.','prefix' => 'admin','middleware' => ['auth','admin'
     //Subscriber Route
     Route::get('/subscriber',[AdminSubscriberController::class,'index'])->name('subscriber.index');
     Route::delete('/subscriber/{id}',[AdminSubscriberController::class,'destroy'])->name('subscriber.destroy');
+
+    //Seetings Route
+    Route::get('/settings',[SeetingsController::class,'index'])->name('settings');
+    Route::put('/profileUpdate',[SeetingsController::class,'updateProfile'])->name('profile.update');
 });
 
 //For Author

@@ -10,7 +10,7 @@
 @section('content')
 <div class="main-slider">
     <div class="swiper-container position-static" data-slide-effect="slide" data-autoheight="false"
-             data-swiper-speed="500" data-swiper-autoplay="10000" data-swiper-margin="0" data-swiper-slides-per-view="4"
+             data-swiper-speed="500" data-swiper-autoplay="3000" data-swiper-margin="0" data-swiper-slides-per-view="4"
              data-swiper-breakpoints="true" data-swiper-loop="true" >
         <div class="swiper-wrapper">
             @foreach ($categories as $category)
