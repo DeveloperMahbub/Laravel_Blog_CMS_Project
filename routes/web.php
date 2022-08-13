@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Author\AuthorDashboardController;
 use App\Http\Controllers\Author\AuthorPostController;
 use App\Http\Controllers\Author\AuthorSeetingsController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SubscriberController;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +42,9 @@ Route::get('/',[HomeController::class,'index'])->name('home');
 
 Route::post('subscriber',[SubscriberController::class,'store'])->name('subscriber.store');
 
+Route::group(['middleware' => ['auth']],function(){
+    Route::post('/favorite/{post}/add',[FavoriteController::class,'add'])->name('post.favorite');
+});
 //For Admin
 Route::group(['as'=>'admin.','prefix' => 'admin','middleware' => ['auth','admin']],function(){
 
