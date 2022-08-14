@@ -29,7 +29,7 @@
                     <i class="material-icons">favorite</i>
                 </div>
                 <div class="content">
-                    <div class="text">TOTAL FAVORITE POSTS</div>
+                    <div class="text">ALL FAVORITE POSTS</div>
                     <div class="number count-to" data-from="0" data-to="{{ Auth::user()->favorite_posts()->count() }}" data-speed="1000" data-fresh-interval="20"></div>
                 </div>
             </div>
@@ -40,7 +40,7 @@
                     <i class="material-icons">forum</i>
                 </div>
                 <div class="content">
-                    <div class="text">TOTAL PENDING POSTS</div>
+                    <div class="text">ALL PENDING POSTS</div>
                     <div class="number count-to" data-from="0" data-to="{{ $total_pending_posts }}" data-speed="1000" data-fresh-interval="20"></div>
                 </div>
             </div>

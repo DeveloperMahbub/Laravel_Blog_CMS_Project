@@ -16,8 +16,8 @@ class AuthorDashboardController extends Controller
             ->withCount('comments')
             ->withCount('favorite_to_user')
             ->orderBy('view_count','desc')
-            ->orderBy('comments_count')
-            ->orderBy('favorite_to_user_count')
+            ->orderBy('comments_count','desc')
+            ->orderBy('favorite_to_user_count','desc')
             ->take(5)->get();
         $total_pending_posts = $posts->where('is_approved',false)->count();
         $all_views = $posts->sum('view_count');

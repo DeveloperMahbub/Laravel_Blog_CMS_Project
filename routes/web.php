@@ -38,11 +38,17 @@ use App\Http\Controllers\SearchController;
 //     return view('welcome');
 // })->name('home');
 Route::get('/',[HomeController::class,'index'])->name('home');
+
 Route::get('/post/{slug}',[PostDetailsController::class,'details'])->name('post.details');
+
 Route::get('/posts',[PostDetailsController::class,'index'])->name('post.index');
+
 Route::get('/category/{slug}',[PostDetailsController::class,'postByCategory'])->name('category.posts');
+
 Route::get('/tag/{slug}',[PostDetailsController::class,'postByTag'])->name('tag.posts');
+
 Route::get('/search',[SearchController::class,'search'])->name('search');
+
 //Author Route
 Route::get('/profile/{username}',[AuthorProfileController::class,'profile'])->name('author.profile');
 
