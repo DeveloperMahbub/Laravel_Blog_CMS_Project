@@ -33,6 +33,7 @@ use Illuminate\Support\Facades\Route;
 // })->name('home');
 Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('/post/{slug}',[PostDetailsController::class,'details'])->name('post.details');
+Route::get('/posts',[PostDetailsController::class,'index'])->name('post.index');
 
 // Route::middleware([
 //     'auth:sanctum',
