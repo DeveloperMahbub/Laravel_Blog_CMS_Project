@@ -1,24 +1,24 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminCommentController;
-use App\Http\Controllers\Admin\AdminDashboardController;
-use App\Http\Controllers\Admin\AdminFavoriteController;
-use App\Http\Controllers\Admin\AdminSubscriberController;
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\PostController;
-use App\Http\Controllers\Admin\SeetingsController;
-use App\Http\Controllers\Admin\TagController;
-use App\Http\Controllers\Author\AuthorCommentController;
-use App\Http\Controllers\Author\AuthorDashboardController;
-use App\Http\Controllers\Author\AuthorFavoriteController;
-use App\Http\Controllers\Author\AuthorPostController;
-use App\Http\Controllers\Author\AuthorSeetingsController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FavoriteController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PostDetailsController;
+use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\SubscriberController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostDetailsController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\SeetingsController;
+use App\Http\Controllers\Author\AuthorPostController;
+use App\Http\Controllers\Admin\AdminCommentController;
+use App\Http\Controllers\Admin\AdminFavoriteController;
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Author\AuthorCommentController;
+use App\Http\Controllers\Admin\AdminSubscriberController;
+use App\Http\Controllers\Author\AuthorFavoriteController;
+use App\Http\Controllers\Author\AuthorSeetingsController;
+use App\Http\Controllers\Author\AuthorDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -103,4 +103,9 @@ Route::group(['as'=>'author.','prefix' => 'author','middleware' => ['auth','auth
      //Comments Route
      Route::get('/comments',[AuthorCommentController::class,'index'])->name('comments.index');
      Route::delete('/comments/{id}',[AuthorCommentController::class,'destroy'])->name('comments.destroy');
+});
+
+view()->composer('layouts.frontend.partial.footer', function ($view) {
+    $categories = App\Models\Category::all();
+    $view->with('categories',$categories);
 });
