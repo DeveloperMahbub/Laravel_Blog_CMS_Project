@@ -27,7 +27,7 @@
 
 @section('content')
 <div class="slider display-table center-text">
-    <h1 class="title display-table-cell text-uppercase"><b>{{ $category->name }}</b></h1>
+    <h1 class="title display-table-cell text-uppercase"><b>Category : {{ $category->name }}</b></h1>
 </div><!-- slider -->
 
 <section class="blog-area section">
@@ -43,7 +43,7 @@
 
                             <div class="blog-image"><img src="{{ url('/storage/post/'.$post->image) }}" alt="Blog Image"></div>
 
-                            <a class="avatar" href="#"><img src="{{ url('/storage/profile/'.$post->user->image) }}" alt="Profile Image"></a>
+                            <a class="avatar" href="{{ route('author.profile',$post->user->username) }}"><img src="{{ url('/storage/profile/'.$post->user->image) }}" alt="Profile Image"></a>
 
                             <div class="blog-info">
 

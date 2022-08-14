@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\AuthorController;
 use App\Http\Controllers\Author\AuthorFavoriteController;
 use App\Http\Controllers\Author\AuthorSeetingsController;
 use App\Http\Controllers\Author\AuthorDashboardController;
+use App\Http\Controllers\AuthorProfileController;
 use App\Http\Controllers\SearchController;
 
 /*
@@ -42,6 +43,8 @@ Route::get('/posts',[PostDetailsController::class,'index'])->name('post.index');
 Route::get('/category/{slug}',[PostDetailsController::class,'postByCategory'])->name('category.posts');
 Route::get('/tag/{slug}',[PostDetailsController::class,'postByTag'])->name('tag.posts');
 Route::get('/search',[SearchController::class,'search'])->name('search');
+//Author Route
+Route::get('/profile/{username}',[AuthorProfileController::class,'profile'])->name('author.profile');
 
 // Route::middleware([
 //     'auth:sanctum',

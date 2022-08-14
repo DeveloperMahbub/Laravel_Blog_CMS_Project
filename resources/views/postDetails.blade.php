@@ -45,7 +45,7 @@
                         <div class="post-info">
 
                             <div class="left-area">
-                                <a class="avatar" href="#"><img src="{{ url('/storage/profile/'.$posts->user->image) }}" alt="Profile Image"></a>
+                                <a class="avatar" href="{{ route('author.profile',$posts->user->username) }}"><img src="{{ url('/storage/profile/'.$posts->user->image) }}" alt="Profile Image"></a>
                             </div>
 
                             <div class="middle-area">
@@ -144,7 +144,7 @@
 
                         <div class="blog-image"><img src="{{ url('/storage/post/'.$randomPost->image) }}" alt="Blog Image"></div>
 
-                        <a class="avatar" href="#"><img src="{{ url('/storage/profile/'.$randomPost->user->image) }}" alt="Profile Image"></a>
+                        <a class="avatar" href="{{ route('author.profile',$randomPost->user->username) }}"><img src="{{ url('/storage/profile/'.$randomPost->user->image) }}" alt="Profile Image"></a>
 
                         <div class="blog-info">
 
