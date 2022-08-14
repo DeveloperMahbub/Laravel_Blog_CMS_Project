@@ -79,4 +79,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Comment');
     }
+
+    public function scopeAuthors($query)
+    {
+        return $query->where('role_id',2);
+    }
 }

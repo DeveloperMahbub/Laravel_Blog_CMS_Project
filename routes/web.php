@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\AdminFavoriteController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Author\AuthorCommentController;
 use App\Http\Controllers\Admin\AdminSubscriberController;
+use App\Http\Controllers\Admin\AuthorController;
 use App\Http\Controllers\Author\AuthorFavoriteController;
 use App\Http\Controllers\Author\AuthorSeetingsController;
 use App\Http\Controllers\Author\AuthorDashboardController;
@@ -85,6 +86,10 @@ Route::group(['as'=>'admin.','prefix' => 'admin','middleware' => ['auth','admin'
     //Comments Route
     Route::get('/comments',[AdminCommentController::class,'index'])->name('comments.index');
     Route::delete('/comments/{id}',[AdminCommentController::class,'destroy'])->name('comments.destroy');
+
+    //Authors Route
+    Route::get('/authors',[AuthorController::class,'index'])->name('author.index');
+    Route::delete('/authors/{id}',[AuthorController::class,'destroy'])->name('author.destroy');
 });
 
 //For Author
